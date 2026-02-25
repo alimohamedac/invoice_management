@@ -33,7 +33,7 @@ class InvoiceController extends Controller
 
         $invoice = $this->invoiceService->createInvoice($dto);
 
-        return response()->json(new InvoiceResource($invoice), 201);
+        return InvoiceResource::make($invoice)->response()->setStatusCode(201);
     }
 
     public function index(ListInvoicesRequest $request, Contract $contract)
@@ -81,7 +81,9 @@ class InvoiceController extends Controller
 
         $payment = $this->invoiceService->recordPayment($dto);
 
-        return response()->json(new PaymentResource($payment), 201);
+        return PaymentResource::make($payment)
+            ->response()
+            ->setStatusCode(201);
     }
 
     public function summary(Contract $contract)
