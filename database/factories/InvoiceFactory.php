@@ -16,10 +16,10 @@ class InvoiceFactory extends Factory
      */
     public function definition(): array
     {
-        static $sequence = 1;
         $tenantId = fake()->numberBetween(1, 10);
         $yearMonth = now()->format('Ym');
-        $invoiceNumber = "INV-{$tenantId}-{$yearMonth}-" . str_pad($sequence++, 3, '0', STR_PAD_LEFT);
+        $randomPart = fake()->unique()->numberBetween(1000, 9999);
+        $invoiceNumber = "INV-" . str_pad($tenantId, 3, '0', STR_PAD_LEFT) . "-{$yearMonth}-" . str_pad($randomPart, 4, '0', STR_PAD_LEFT);
         
         $subtotal = fake()->randomFloat(2, 500, 5000);
         $taxAmount = round($subtotal * 0.175, 2);
